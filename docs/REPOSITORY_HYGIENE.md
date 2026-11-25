@@ -1,0 +1,3 @@
+# Repository hygiene — 2026-11-25
+
+Legacy web repository; current production status not verified. Dependencies are reproducible from `backend/package-lock.json`: run `cd backend && npm ci` with a compatible Node version before running the application. Native SQLite dependency may require platform-specific build tooling. `node_modules` is not source code. Preserve the tracked database pending authorized data review; do not publish or copy its contents. No production deployment, history rewrite or archive performed. Validate startup, routes and database on a non-production copy before merge. The canonical corporate website is maintained separately in `mastertech-website`; verify whether this legacy repository is still required before archiving.
