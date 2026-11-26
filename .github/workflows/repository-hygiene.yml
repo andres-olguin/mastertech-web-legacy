@@ -1,0 +1,26 @@
+name: Repository hygiene
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Reject tracked generated dependencies
+        run: |
+          python3 -c "import subprocess; p=subprocess.check_output(['git','ls-files','-z']).decode().split('\0'); bad=[x for x in p if 'node_modules' in x.split('/') or x.endswith('.DS_Store')]; print('Tracked generated files:',len(bad)); assert not bad"
+      - name: Install from lockfile and check syntax
+        working-directory: backend
+        run: |
+          npm ci
+          node --check server.js
+          node -e "require('node:sqlite')"

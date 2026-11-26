@@ -1,0 +1,16 @@
+# Generated local dependencies and artifacts
+node_modules/
+.env
+.env.*
+!.env.example
+!.env.sample
+*.log
+.DS_Store
+Thumbs.db
+__MACOSX/
+coverage/
+# Local database: tracked legacy file retained pending data review
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
